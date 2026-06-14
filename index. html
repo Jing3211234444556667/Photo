@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoPrompt AI - Image Prompt Studio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header Frame -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="bg-gradient-to-tr from-amber-500 to-rose-600 p-2 rounded-xl shadow-lg shadow-rose-500/10">
+                <i class="fa-solid fa-camera-retro text-xl text-white"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-white">PhotoPrompt <span class="text-amber-400 font-extrabold text-xs tracking-wider uppercase ml-1">Studio</span></h1>
+                <p class="text-xs text-slate-400">Raw Idea to Cinematic Masterpiece</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2 text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg">
+            <span class="h-2 w-2 rounded-full bg-amber-500 animate-pulse"></span>
+            <span>Lens Profile: Active</span>
+        </div>
+    </header>
+        <!-- Main Studio Dashboard -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Setup Panel -->
+        <div class="lg:col-span-5 flex flex-col space-y-4">
+            
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 space-y-4">
+                <h3 class="text-xs font-bold tracking-wider uppercase text-slate-400 flex items-center">
+                    <i class="fa-solid fa-sliders text-amber-400 mr-2"></i> Camera & Style Engine
+                </h3>
+
+                <!-- Target Engine Selection -->
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Target AI Generator</label>
+                    <select id="target-engine" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+                        <option value="midjourney">Midjourney v6 (--style raw)</option>
+                        <option value="flux">FLUX.1 (Schnell/Dev)</option>
+                        <option value="dalle">OpenAI DALL·E 3</option>
+                        <option value="stablediffusion">Stable Diffusion (SDXL)</option>
+                    </select>
+                </div>
+
+                <!-- Photographic Style Profiles -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">Style Rendering</label>
+                        <select id="photo-style" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+                            <option value="cinematic">Cinematic Movie Still</option>
+                            <option value="editorial">Vogue Editorial Photo</option>
+                            <option value="street">Street Photography</option>
+                            <option value="cyberpunk">Neon Cyberpunk Synth</option>
+                            <option value="watercolor">Watercolor & Ink Spill</option>
+                            <option value="macro">Macro Closeup Detail</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">Lighting Matrix</label>
+                        <select id="photo-lighting" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+                            <option value="golden_hour">Golden Hour Sunset</option>
+                            <option value="volumetric">Volumetric God Rays</option>
+                            <option value="neon">Moody Cyberpunk Neon</option>
+                            <option value="studio">High-Key Studio Softbox</option>
+                            <option value="dramatic">Chiaroscuro Dark Moody</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Aspect Ratio Variable -->
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Aspect Ratio Layout</label>
+                    <select id="photo-aspect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+                        <option value="16:9">Horizontal Widescreen (16:9)</option>
+                        <option value="1:1">Square Grid Post (1:1)</option>
+                        <option value="4:5">Vertical Social Frame (4:5)</option>
+                        <option value="9:16">Mobile Portrait Screen (9:16)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Content Input Box -->
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 flex-1 flex flex-col justify-between space-y-4">
+                <div class="flex-1 flex flex-col">
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Describe the Photo Scene</label>
+                    <textarea id="photo-raw-input" placeholder="Example: 'a warrior sitting on a throne' or 'a classic classic sports car racing down a rainy street'..." 
+                        class="w-full flex-1 min-h-[140px] bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-amber-500 resize-none"></textarea>
+                </div>
+
+                <button onclick="generatePhotoPrompt()" class="w-full bg-gradient-to-r from-amber-500 to-rose-600 text-white rounded-xl py-3 text-sm font-semibold hover:from-amber-400 hover:to-rose-500 transition shadow-lg shadow-rose-950/20 flex items-center justify-center space-x-2 cursor-pointer">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Strike Camera Prompt</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Output Terminal Display -->
+        <div class="lg:col-span-7 flex flex-col">
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 flex-1 flex flex-col">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xs font-bold tracking-wider uppercase text-slate-400 flex items-center">
+                        <i class="fa-solid fa-terminal text-rose-500 mr-2"></i> Rendered Output Prompt
+                    </h3>
+                    <button onclick="copyPhotoPrompt()" class="text-xs bg-slate-950 hover:bg-slate-800 border border-slate-800 px-3 py-1.5 rounded-lg text-amber-400 transition flex items-center space-x-1.5 cursor-pointer">
+                        <i class="fa-regular fa-copy"></i> <span>Copy Output</span>
+                    </button>
+                </div>
+
+                <!-- Text Engine Terminal Frame -->
+                <div class="flex-1 bg-slate-950 border border-slate-900 rounded-xl p-4 flex flex-col justify-between min-h-[240px]">
+                    <p id="prompt-placeholder" class="text-sm text-slate-600 italic">Configure your parameters and tap generate to upscale your description into an advanced AI camera command.</p>
+                    <div id="prompt-output-box" class="hidden h-full">
+                        <div id="rendered-photo-prompt" class="text-sm text-slate-100 mono leading-relaxed whitespace-pre-line select-all"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+        <!-- Processing Logic -->
+    <script>
+        let latestGeneratedPrompt = "";
+
+        function generatePhotoPrompt() {
+            const rawVal = document.getElementById('photo-raw-input').value.trim();
+            if(!rawVal) {
+                alert("Please write a quick description of your photo scene first!");
+                return;
+            }
+
+            const engine = document.getElementById('target-engine').value;
+            const style = document.getElementById('photo-style').value;
+            const lighting = document.getElementById('photo-lighting').value;
+            const aspect = document.getElementById('photo-aspect').value;
+
+            // Photographic Lens Map Library
+            let styleTags = "";
+            if (style === "cinematic") styleTags = "cinematic movie still, shot on 35mm lens, depth of field, anamorphic lighting, masterwork composition, highly realistic textures";
+            if (style === "editorial") styleTags = "vogue editorial fashion photography, high fashion magazine shoot, intricate sharp garments, ultra-detailed portraits, grain profile";
+            if (style === "street") styleTags = "candid street photography, captured on 50mm lens, shutter speed capture, high contrast, documentary style, authentic film tone";
+            if (style === "cyberpunk") styleTags = "cyberpunk aesthetic, high-tech low-life, neon wire illumination, rainy asphalt mirror reflections, highly intricate mechanical details";
+            if (style === "watercolor") styleTags = "dreamy watercolor and ink wash painting illustration, localized bleed effects, abstract splash accents, sharp ink pen outlining contours";
+            if (style === "macro") styleTags = "extreme macro closeup details, high magnification focus layout, sharp micro textures visible, shallow depth of field framing";
+
+            // Ambient Lighting Map Library
+            let lightingTags = "";
+            if (lighting === "golden_hour") lightingTags = "warm golden hour lighting, directional long sun beams, hazy ambient sky glows";
+            if (lighting === "volumetric") lightingTags = "dramatic volumetric global illumination, pristine rays shifting through heavy atmospheric air layers";
+            if (lighting === "neon") lightingTags = "vibrant neon cyberpunk glowing filters, rich magenta and cyan cross-lighting hues";
+            if (lighting === "studio") lightingTags = "commercial softbox studio light panels, clean rim illumination accents, subtle shadow structures";
+            if (lighting === "dramatic") lightingTags = "chiaroscuro mood, heavy shadows contrasting high exposure beams, mysterious cinematic environment";
+
+            // Structural Engine Output Compiler
+            let compiledText = "";
+            if (engine === "midjourney") {
+                compiledText = `A stunning portrait photograph of ${rawVal}. ${styleTags}, ${lightingTags}, photo taken by Hasselblad camera --ar ${aspect} --v 6.0 --style raw`;
+            } else if (engine === "flux") {
+                compiledText = `An ultra-detailed photographic rendering featuring ${rawVal}. ${styleTags}, bathed in ${lightingTags}, 8k resolution screen capture, pristine composition, aspect ratio ${aspect}.`;
+            } else if (engine === "dalle") {
+                compiledText = `A high-fidelity photo depiction of ${rawVal}. The scene is processed as a ${styleTags}. Enforce ${lightingTags}, realistic camera lens characteristics, balanced frame composition.`;
+            } else {
+                compiledText = `${rawVal}, ${styleTags}, ${lightingTags}, sharp focus, photorealistic 8k resolution, highly detailed details`;
+            }
+
+            latestGeneratedPrompt = compiledText;
+
+            // DOM State Swapping Update
+            document.getElementById('prompt-placeholder').classList.add('hidden');
+            const outputBox = document.getElementById('prompt-output-box');
+            outputBox.classList.remove('hidden');
+            
+            document.getElementById('rendered-photo-prompt').textContent = compiledText;
+        }
+
+        function copyPhotoPrompt() {
+            if(!latestGeneratedPrompt) {
+                alert("Generate a photographic prompt first!");
+                return;
+            }
+            navigator.clipboard.writeText(latestGeneratedPrompt)
+                .then(() => alert("Photo prompt successfully copied directly to clipboard!"))
+                .catch(err => alert("Copy failed. Highlight text manually."));
+        }
+    </script>
+</body>
+</html>
+
